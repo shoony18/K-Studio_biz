@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,6 @@
 		27A3075224B063530024C0DC /* QATableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A3075124B063530024C0DC /* QATableViewCell.swift */; };
 		27A3075424B063F50024C0DC /* QAAllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A3075324B063F40024C0DC /* QAAllListViewController.swift */; };
 		27A3075824B06A620024C0DC /* SelectedQAAllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A3075724B06A620024C0DC /* SelectedQAAllListViewController.swift */; };
-		27B70120237C2C6300A57E6F /* videolistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7011F237C2C6300A57E6F /* videolistViewController.swift */; };
 		27B70122237DA42D00A57E6F /* AllVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B70121237DA42D00A57E6F /* AllVideoViewController.swift */; };
 		27B701242380F63B00A57E6F /* selectedVideolistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B701232380F63B00A57E6F /* selectedVideolistViewController.swift */; };
 		27C95072231A1EFB0043F968 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95071231A1EFB0043F968 /* AppDelegate.swift */; };
@@ -52,11 +51,11 @@
 		27EF726C252CBC1700820FAA /* premiumSelectedPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF726B252CBC1700820FAA /* premiumSelectedPostTableViewCell.swift */; };
 		27EF726E2531AB9B00820FAA /* premiumAnswer1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF726D2531AB9A00820FAA /* premiumAnswer1ViewController.swift */; };
 		27F5731223706CA000916C7D /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5731123706CA000916C7D /* homeViewController.swift */; };
-		81A9B941770F2C606D746EE9 /* Pods_track_online.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5B88713B358DDFF58D956C /* Pods_track_online.framework */; };
+		5A53BD6887A77519FC62FB21 /* Pods_track_online.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DCD65C9E32B1EDBC3DA429 /* Pods_track_online.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06BE019C4E9A10917B585468 /* Pods-track_online.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-track_online.debug.xcconfig"; path = "Target Support Files/Pods-track_online/Pods-track_online.debug.xcconfig"; sourceTree = "<group>"; };
+		01DCD65C9E32B1EDBC3DA429 /* Pods_track_online.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_track_online.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2716C686237813A100712B18 /* PushFadeSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushFadeSegue.swift; sourceTree = "<group>"; };
 		2716C6882379C12200712B18 /* recViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recViewController.swift; sourceTree = "<group>"; };
 		2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumPracticeRegisterViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +82,6 @@
 		27A3075124B063530024C0DC /* QATableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QATableViewCell.swift; sourceTree = "<group>"; };
 		27A3075324B063F40024C0DC /* QAAllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAAllListViewController.swift; sourceTree = "<group>"; };
 		27A3075724B06A620024C0DC /* SelectedQAAllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedQAAllListViewController.swift; sourceTree = "<group>"; };
-		27B7011F237C2C6300A57E6F /* videolistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = videolistViewController.swift; path = ../videolistViewController.swift; sourceTree = "<group>"; };
 		27B70121237DA42D00A57E6F /* AllVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVideoViewController.swift; sourceTree = "<group>"; };
 		27B701232380F63B00A57E6F /* selectedVideolistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectedVideolistViewController.swift; sourceTree = "<group>"; };
 		27C9506E231A1EFB0043F968 /* track.biz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = track.biz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,8 +111,8 @@
 		27EF726B252CBC1700820FAA /* premiumSelectedPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumSelectedPostTableViewCell.swift; sourceTree = "<group>"; };
 		27EF726D2531AB9A00820FAA /* premiumAnswer1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumAnswer1ViewController.swift; sourceTree = "<group>"; };
 		27F5731123706CA000916C7D /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
-		44B2A6880C90ED0E85D3142D /* Pods-track_online.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-track_online.release.xcconfig"; path = "Target Support Files/Pods-track_online/Pods-track_online.release.xcconfig"; sourceTree = "<group>"; };
-		8F5B88713B358DDFF58D956C /* Pods_track_online.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_track_online.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		489B65BCCD90CBA31F866780 /* Pods-track_online.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-track_online.debug.xcconfig"; path = "Target Support Files/Pods-track_online/Pods-track_online.debug.xcconfig"; sourceTree = "<group>"; };
+		FE0290BEC1A08AABD519D7B2 /* Pods-track_online.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-track_online.release.xcconfig"; path = "Target Support Files/Pods-track_online/Pods-track_online.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A9B941770F2C606D746EE9 /* Pods_track_online.framework in Frameworks */,
+				5A53BD6887A77519FC62FB21 /* Pods_track_online.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +176,6 @@
 				27F5731123706CA000916C7D /* homeViewController.swift */,
 				278A65CA2393A74A00E43D7B /* appRuleViewController.swift */,
 				2751DEC22385B889006A3586 /* sentVideoViewController.swift */,
-				27B7011F237C2C6300A57E6F /* videolistViewController.swift */,
 				279E26A62404203200C88144 /* QAListViewController.swift */,
 				27B701232380F63B00A57E6F /* selectedVideolistViewController.swift */,
 				279E26A82406C5BB00C88144 /* SelectedQAListViewController.swift */,
@@ -203,8 +200,8 @@
 		9CF40B72E03025F4ED12FF6B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				06BE019C4E9A10917B585468 /* Pods-track_online.debug.xcconfig */,
-				44B2A6880C90ED0E85D3142D /* Pods-track_online.release.xcconfig */,
+				489B65BCCD90CBA31F866780 /* Pods-track_online.debug.xcconfig */,
+				FE0290BEC1A08AABD519D7B2 /* Pods-track_online.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -221,7 +218,7 @@
 				27D085EB2352BE0A005A0D39 /* GoogleUtilities.framework */,
 				27D085ED2352BE0A005A0D39 /* leveldb.framework */,
 				27D085EF2352BE0A005A0D39 /* nanopb.framework */,
-				8F5B88713B358DDFF58D956C /* Pods_track_online.framework */,
+				01DCD65C9E32B1EDBC3DA429 /* Pods_track_online.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,12 +230,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27C95080231A1EFD0043F968 /* Build configuration list for PBXNativeTarget "track_online" */;
 			buildPhases = (
-				ECC6096A5410CBDFF8B20596 /* [CP] Check Pods Manifest.lock */,
+				4A7F78B7E0E0AE07240BD0F5 /* [CP] Check Pods Manifest.lock */,
 				27C9506A231A1EFB0043F968 /* Sources */,
 				27C9506B231A1EFB0043F968 /* Frameworks */,
 				27C9506C231A1EFB0043F968 /* Resources */,
-				FFD1DECF17AA47E078FF1AD4 /* [CP] Embed Pods Frameworks */,
-				31E95AC48F7DAF541B1187E9 /* [CP] Copy Pods Resources */,
+				4EF86E9856DF61088604373D /* [CP] Embed Pods Frameworks */,
+				5110B8FEDFF333C96C536AA5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -299,24 +296,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31E95AC48F7DAF541B1187E9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECC6096A5410CBDFF8B20596 /* [CP] Check Pods Manifest.lock */ = {
+		4A7F78B7E0E0AE07240BD0F5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,7 +318,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFD1DECF17AA47E078FF1AD4 /* [CP] Embed Pods Frameworks */ = {
+		4EF86E9856DF61088604373D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -353,6 +333,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5110B8FEDFF333C96C536AA5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-track_online/Pods-track_online-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -373,7 +370,6 @@
 				279E26A72404203200C88144 /* QAListViewController.swift in Sources */,
 				27DC9FA123654BEA00F16F10 /* videoViewController.swift in Sources */,
 				2756012D239284A40083EBBE /* loginViewController.swift in Sources */,
-				27B70120237C2C6300A57E6F /* videolistViewController.swift in Sources */,
 				27EF7266252CADA000820FAA /* selectedPremiumUserViewController.swift in Sources */,
 				27EF726A252CB85700820FAA /* premiumSelectedUserViewController.swift in Sources */,
 				273B727223482AAA00A63664 /* trackTabbarViewController.swift in Sources */,
@@ -537,7 +533,7 @@
 		};
 		27C95081231A1EFD0043F968 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06BE019C4E9A10917B585468 /* Pods-track_online.debug.xcconfig */;
+			baseConfigurationReference = 489B65BCCD90CBA31F866780 /* Pods-track_online.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -560,7 +556,7 @@
 		};
 		27C95082231A1EFD0043F968 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44B2A6880C90ED0E85D3142D /* Pods-track_online.release.xcconfig */;
+			baseConfigurationReference = FE0290BEC1A08AABD519D7B2 /* Pods-track_online.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
