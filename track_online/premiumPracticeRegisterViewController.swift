@@ -18,6 +18,8 @@ import AssetsLibrary
 class premiumPracticeRegisterViewController: UIViewController {
 
     @IBOutlet var practice: UITextField!
+    @IBOutlet var motionType: UITextField!
+    @IBOutlet var bodyParts: UITextField!
     let Ref = Database.database().reference()
 
     

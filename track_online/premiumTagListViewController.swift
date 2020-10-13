@@ -117,7 +117,7 @@ class premiumTagListViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 for key in snapdata.keys.sorted(){
                     let snap = snapdata[key]
-                    if let data = snap!["menu"] as? String {
+                    if let data = snap!["practice"] as? String {
                         self.badTagPracticeArray.append(data)
                         self.badTagPracticeArray_re = self.badTagPracticeArray
                         self.TableView.reloadData()
@@ -167,7 +167,7 @@ class premiumTagListViewController: UIViewController,UITableViewDelegate,UITable
             cell!.tagName.text = self.badTagNameArray_re[indexPath.row]
             cell!.cause.text = self.badTagCauseArray_re[indexPath.row]
             cell!.comment.text = self.badTagCommentArray_re[indexPath.row]
-            cell!.practice.text = self.badTagPracticeArray_re[indexPath.row]
+//            cell!.practice.text = self.badTagPracticeArray_re[indexPath.row]
             return cell!
         }
     }
