@@ -25,6 +25,7 @@ class premiumTagRegisterViewController: UIViewController {
     @IBOutlet var practice: UILabel!
     @IBOutlet var comment: UITextView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

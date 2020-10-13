@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2716C687237813A100712B18 /* PushFadeSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716C686237813A100712B18 /* PushFadeSegue.swift */; };
 		2716C6892379C12200712B18 /* recViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716C6882379C12200712B18 /* recViewController.swift */; };
+		2716D4AB2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */; };
 		272E059B2343BAA200DEE988 /* lessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E059A2343BAA200DEE988 /* lessonViewController.swift */; };
 		2738D8F525332790005920B6 /* tagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738D8F425332790005920B6 /* tagTableViewCell.swift */; };
 		2738D8F72533286D005920B6 /* premiumTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738D8F62533286D005920B6 /* premiumTagListViewController.swift */; };
@@ -58,6 +59,7 @@
 		06BE019C4E9A10917B585468 /* Pods-track_online.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-track_online.debug.xcconfig"; path = "Target Support Files/Pods-track_online/Pods-track_online.debug.xcconfig"; sourceTree = "<group>"; };
 		2716C686237813A100712B18 /* PushFadeSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushFadeSegue.swift; sourceTree = "<group>"; };
 		2716C6882379C12200712B18 /* recViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recViewController.swift; sourceTree = "<group>"; };
+		2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumPracticeRegisterViewController.swift; sourceTree = "<group>"; };
 		272E059A2343BAA200DEE988 /* lessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lessonViewController.swift; sourceTree = "<group>"; };
 		2738D8F425332790005920B6 /* tagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagTableViewCell.swift; sourceTree = "<group>"; };
 		2738D8F62533286D005920B6 /* premiumTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumTagListViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				27EF726D2531AB9A00820FAA /* premiumAnswer1ViewController.swift */,
 				2738D8F62533286D005920B6 /* premiumTagListViewController.swift */,
 				2738D8FA25333487005920B6 /* premiumTagRegisterViewController.swift */,
+				2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */,
 				27EF7265252CADA000820FAA /* selectedPremiumUserViewController.swift */,
 				279E26A4240378BF00C88144 /* QATopViewController.swift */,
 				27F5731123706CA000916C7D /* homeViewController.swift */,
@@ -363,6 +366,7 @@
 				2772C41324E1408A00D504D3 /* chaosMapAdminTableViewCell.swift in Sources */,
 				278144372414EC3700B50CBD /* UserListViewController.swift in Sources */,
 				2738D8F72533286D005920B6 /* premiumTagListViewController.swift in Sources */,
+				2716D4AB2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift in Sources */,
 				272E059B2343BAA200DEE988 /* lessonViewController.swift in Sources */,
 				27EF7268252CB7FF00820FAA /* premiumSelectedPostViewController.swift in Sources */,
 				27EF726C252CBC1700820FAA /* premiumSelectedPostTableViewCell.swift in Sources */,
