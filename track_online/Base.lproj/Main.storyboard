@@ -1196,11 +1196,11 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-rg-xUG">
-                                                    <rect key="frame" x="42" y="19.5" width="15" height="1"/>
+                                                    <rect key="frame" x="42" y="18.5" width="15" height="3"/>
                                                     <color key="backgroundColor" red="0.50980392159999999" green="0.61568627450000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="pBG-MU-3HE"/>
-                                                        <constraint firstAttribute="height" constant="1" id="vOP-KW-seg"/>
+                                                        <constraint firstAttribute="height" constant="3" id="vOP-KW-seg"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
