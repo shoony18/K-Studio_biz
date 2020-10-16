@@ -241,17 +241,12 @@ class premiumTagRegisterViewController: UIViewController,UITextFieldDelegate,UIP
             (action: UIAlertAction!) -> Void in
             
             let ref0 = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("\(self.tagGenre.text!)").child("all").child("\(self.tagGenre.text!)"+"_"+"\(timenow)")
-            if self.practice2.text != nil{
-                let data0 = ["tagID":"\(self.tagGenre.text!)"+"_"+"\(timenow)","tagName":"\(self.tagName.text!)","motionType":"\(self.motionType.text!)","bodyParts":"\(self.bodyParts.text!)","cause":"\(self.cause.text!)","comment":"\(self.comment.text!)","practice":"\(self.practice1.text!)"+"/"+"\(self.practice2.text!)"]
-                ref0.setValue(data0)
-            }else if self.practice3.text != nil{
-                let data0 = ["tagID":"\(self.tagGenre.text!)"+"_"+"\(timenow)","tagName":"\(self.tagName.text!)","motionType":"\(self.motionType.text!)","bodyParts":"\(self.bodyParts.text!)","cause":"\(self.cause.text!)","comment":"\(self.comment.text!)","practice":"\(self.practice1.text!)"+"/"+"\(self.practice2.text!)"+"/"+"\(self.practice3.text!)"]
-                ref0.setValue(data0)
-            }
-            
+            let data0 = ["tagID":"\(self.tagGenre.text!)"+"_"+"\(timenow)","tagName":"\(self.tagName.text!)","motionType":"\(self.motionType.text!)","bodyParts":"\(self.bodyParts.text!)","cause":"\(self.cause.text!)","comment":"\(self.comment.text!)","practice":"\(self.practice1.text!)"+"/"+"\(self.practice2.text!)"+"/"+"\(self.practice3.text!)"]
+            ref0.setValue(data0)
+
             if self.tagGenre.text == "badTag"{
                 for key in 0...self.selectedPracticeIDArray.count-1{
-                    let ref1 = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("\(self.tagGenre.text!)").child("all").child("\(self.tagGenre.text!)"+"_"+"\(timenow)").child("practice").child("practice"+"\(key)")
+                    let ref1 = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("\(self.tagGenre.text!)").child("all").child("\(self.tagGenre.text!)"+"_"+"\(timenow)").child("practice").child("\(self.selectedPracticeIDArray[key])")
                     let data1 = ["practiceID":"\(self.selectedPracticeIDArray[key])","practice":"\(self.selectedPracticeArray[key])"]
                     ref1.setValue(data1)
                 }

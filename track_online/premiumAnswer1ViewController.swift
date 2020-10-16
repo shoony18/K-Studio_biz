@@ -54,6 +54,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     var badTagIDArray = [String]()
     var practiceArray = [String]()
     var practiceIDArray = [String]()
+    var practiceTagArray = [Int]()
 
     var goodTagNameArray_re = [String]()
     var badTagNameArray_re = [String]()
@@ -61,6 +62,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     var badTagIDArray_re = [String]()
     var practiceArray_re = [String]()
     var practiceIDArray_re = [String]()
+    var practiceTagArray_re = [Int]()
 
     let imagePickerController = UIImagePickerController()
     var cache: String?
@@ -180,7 +182,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     let snap = snapdata[key]
                     if let key = snap!["tagName"] as? String {
                         self.goodTagNameArray.append(key)
-                        self.goodTagNameArray_re = self.goodTagNameArray.reversed()
+                        self.goodTagNameArray_re = self.goodTagNameArray
                         self.TableView.reloadData()
                     }
                 }
@@ -188,7 +190,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     let snap = snapdata[key]
                     if let key = snap!["tagID"] as? String {
                         self.goodTagIDArray.append(key)
-                        self.goodTagIDArray_re = self.goodTagIDArray.reversed()
+                        self.goodTagIDArray_re = self.goodTagIDArray
                         self.TableView.reloadData()
                     }
                 }
@@ -200,7 +202,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     let snap = snapdata[key]
                     if let key = snap!["tagName"] as? String {
                         self.badTagNameArray.append(key)
-                        self.badTagNameArray_re = self.badTagNameArray.reversed()
+                        self.badTagNameArray_re = self.badTagNameArray
                         self.TableView.reloadData()
                     }
                 }
@@ -208,7 +210,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     let snap = snapdata[key]
                     if let key = snap!["tagID"] as? String {
                         self.badTagIDArray.append(key)
-                        self.badTagIDArray_re = self.badTagIDArray.reversed()
+                        self.badTagIDArray_re = self.badTagIDArray
                         self.TableView.reloadData()
                     }
                 }
@@ -218,9 +220,17 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             if let snapdata = snapshot.value as? [String:NSDictionary]{
                 for key in snapdata.keys.sorted(){
                     let snap = snapdata[key]
-                    if let key = snap!["menu"] as? String {
+                    if let key = snap!["practiceTag"] as? String {
+                        self.practiceTagArray.append(Int(key)!)
+                        self.practiceTagArray_re = self.practiceTagArray
+                        self.TableView.reloadData()
+                    }
+                }
+                for key in snapdata.keys.sorted(){
+                    let snap = snapdata[key]
+                    if let key = snap!["practice"] as? String {
                         self.practiceArray.append(key)
-                        self.practiceArray_re = self.practiceArray.reversed()
+                        self.practiceArray_re = self.practiceArray
                         self.TableView.reloadData()
                     }
                 }
@@ -228,7 +238,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     let snap = snapdata[key]
                     if let key = snap!["practiceID"] as? String {
                         self.practiceIDArray.append(key)
-                        self.practiceIDArray_re = self.practiceIDArray.reversed()
+                        self.practiceIDArray_re = self.practiceIDArray
                         self.TableView.reloadData()
                     }
                 }
@@ -283,7 +293,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             return cell!
         }else if indexPath.row > 1 && indexPath.row <= 1+goodTagNameArray_re.count{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+goodTagNameArray_re[indexPath.row-2]
+            cell!.answerLabel.text = "\(indexPath.row-1)."+goodTagNameArray_re[indexPath.row-2]
             return cell!
         }else if indexPath.row == 1+goodTagNameArray_re.count+1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -293,7 +303,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             return cell!
         }else if indexPath.row > 1+goodTagNameArray_re.count+1 && indexPath.row <= 1+goodTagNameArray_re.count+1+badTagNameArray_re.count{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+badTagNameArray_re[indexPath.row-(1+goodTagNameArray_re.count+1)-1]
+            cell!.answerLabel.text = "\(indexPath.row+1-1-goodTagNameArray_re.count-2)."+badTagNameArray_re[indexPath.row-(1+goodTagNameArray_re.count+1)-1]
             return cell!
         }else if indexPath.row == 1+goodTagNameArray_re.count+1+badTagNameArray_re.count+1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -408,17 +418,28 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1, section: 0)],with: .automatic)
             self.TableView.endUpdates()
 
-            self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("badTag").child("all").child("\(self.selectedBadTagNameID!)").observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                let key1 = value?["menu"] as? String ?? ""
-                let key2 = value?["practiceID"] as? String ?? ""
-                self.selectedPractice = key1
-                self.selectedPracticeID = key2
-                self.practiceArray_re.insert(self.selectedPractice!, at: 0)
-                self.practiceIDArray_re.insert(self.selectedPracticeID!, at: 0)
-                self.TableView.beginUpdates()
-                self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1+self.badTagNameArray_re.count+1, section: 0)],with: .automatic)
-                self.TableView.endUpdates()
+            self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("badTag").child("all").child("\(self.selectedBadTagNameID!)").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
+                if let snapdata = snapshot.value as? [String:NSDictionary]{
+                    for key in snapdata.keys.sorted(){
+                        let snap = snapdata[key]
+                        if let key = snap!["practice"] as? String {
+                            self.practiceTagArray.append(self.badTagIDArray_re.count)
+                            self.practiceTagArray_re = self.practiceTagArray
+                            self.selectedPractice = key
+                            self.practiceArray_re.insert(self.selectedPractice!, at: 0)
+                            self.TableView.beginUpdates()
+                            self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1+self.badTagNameArray_re.count+1, section: 0)],with: .automatic)
+                            self.TableView.endUpdates()
+                        }
+                    }
+                    for key in snapdata.keys.sorted(){
+                        let snap = snapdata[key]
+                        if let key = snap!["practiceID"] as? String {
+                            self.selectedPracticeID = key
+                            self.practiceIDArray_re.insert(self.selectedPracticeID!, at: 0)
+                        }
+                    }
+                }
             })
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
@@ -513,13 +534,27 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                 let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("goodTag").child("\(self.goodTagIDArray_re[key])")
                 ref.updateChildValues(data)
             }
-            for key in 0..<self.badTagIDArray_re.count{
-                let data = ["tagID":"\(self.badTagIDArray_re[key])","tagName":"\(self.badTagNameArray_re[key])"]
-                let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(self.badTagIDArray_re[key])")
+            for number in 0..<self.badTagIDArray_re.count{
+                let data = ["tagID":"\(self.badTagIDArray_re[number])","tagName":"\(self.badTagNameArray_re[number])"]
+                let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(self.badTagIDArray_re[number])")
                 ref.updateChildValues(data)
+                
+                self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("badTag").child("all").child("\(self.badTagNameArray_re[number])").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
+                    if let snapdata = snapshot.value as? [String:NSDictionary]{
+                        for key in snapdata.keys.sorted(){
+                            let snap = snapdata[key]
+                            if let key = snap!["practiceID"] as? String {
+                                let data = ["practiceID":"\(key)"]
+                                let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(self.badTagIDArray_re[number])").child("practice").child("\(key)")
+                                ref.updateChildValues(data)
+                            }
+                        }
+                    }
+                })
+
             }
             for key in 0..<self.practiceIDArray_re.count{
-                let data = ["menu":"\(self.practiceArray_re[key])","practiceID":"\(self.practiceIDArray_re[key])","tagID":"\(self.badTagIDArray_re[key])","tagName":"\(self.badTagNameArray_re[key])"]
+                let data = ["practice":"\(self.practiceArray_re[key])","practiceID":"\(self.practiceIDArray_re[key])","tagID":"\(self.badTagIDArray_re[key])","tagName":"\(self.badTagNameArray_re[key])"]
                 let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("practice").child("\(self.practiceIDArray_re[key])")
                 ref.updateChildValues(data)
             }

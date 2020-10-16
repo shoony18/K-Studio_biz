@@ -155,7 +155,7 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             if let snapdata = snapshot.value as? [String:NSDictionary]{
                 for key in snapdata.keys.sorted(){
                     let snap = snapdata[key]
-                    if let key = snap!["menu"] as? String {
+                    if let key = snap!["practice"] as? String {
                         self.practiceArray.append(key)
                         self.practiceArray_re = self.practiceArray.reversed()
                         self.TableView.reloadData()

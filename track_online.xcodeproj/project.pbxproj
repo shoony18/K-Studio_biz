@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2716C687237813A100712B18 /* PushFadeSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716C686237813A100712B18 /* PushFadeSegue.swift */; };
 		2716C6892379C12200712B18 /* recViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716C6882379C12200712B18 /* recViewController.swift */; };
 		2716D4AB2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */; };
+		2716D4AF2537183E00AF6EED /* premiumPracticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716D4AE2537183E00AF6EED /* premiumPracticeListViewController.swift */; };
 		272E059B2343BAA200DEE988 /* lessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E059A2343BAA200DEE988 /* lessonViewController.swift */; };
 		2738D8F525332790005920B6 /* tagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738D8F425332790005920B6 /* tagTableViewCell.swift */; };
 		2738D8F72533286D005920B6 /* premiumTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2738D8F62533286D005920B6 /* premiumTagListViewController.swift */; };
@@ -59,6 +60,7 @@
 		2716C686237813A100712B18 /* PushFadeSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushFadeSegue.swift; sourceTree = "<group>"; };
 		2716C6882379C12200712B18 /* recViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recViewController.swift; sourceTree = "<group>"; };
 		2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumPracticeRegisterViewController.swift; sourceTree = "<group>"; };
+		2716D4AE2537183E00AF6EED /* premiumPracticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumPracticeListViewController.swift; sourceTree = "<group>"; };
 		272E059A2343BAA200DEE988 /* lessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lessonViewController.swift; sourceTree = "<group>"; };
 		2738D8F425332790005920B6 /* tagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagTableViewCell.swift; sourceTree = "<group>"; };
 		2738D8F62533286D005920B6 /* premiumTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = premiumTagListViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				27EF7267252CB7FF00820FAA /* premiumSelectedPostViewController.swift */,
 				27EF726D2531AB9A00820FAA /* premiumAnswer1ViewController.swift */,
 				2738D8F62533286D005920B6 /* premiumTagListViewController.swift */,
+				2716D4AE2537183E00AF6EED /* premiumPracticeListViewController.swift */,
 				2738D8FA25333487005920B6 /* premiumTagRegisterViewController.swift */,
 				2716D4AA2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift */,
 				27EF7265252CADA000820FAA /* selectedPremiumUserViewController.swift */,
@@ -366,6 +369,7 @@
 				2716D4AB2535B4D400AF6EED /* premiumPracticeRegisterViewController.swift in Sources */,
 				272E059B2343BAA200DEE988 /* lessonViewController.swift in Sources */,
 				27EF7268252CB7FF00820FAA /* premiumSelectedPostViewController.swift in Sources */,
+				2716D4AF2537183E00AF6EED /* premiumPracticeListViewController.swift in Sources */,
 				27EF726C252CBC1700820FAA /* premiumSelectedPostTableViewCell.swift in Sources */,
 				279E26A72404203200C88144 /* QAListViewController.swift in Sources */,
 				27DC9FA123654BEA00F16F10 /* videoViewController.swift in Sources */,
