@@ -57,6 +57,8 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     var selectedPracticeIDArray = [String]()
     var practiceForCountArray = [String]()
     var practiceNumbersArray = [Int]()
+    var labelRowArray = [Int]()
+    var practiceRowArray = [Int]()
 
     var goodTagNameArray_re = [String]()
     var badTagNameArray_re = [String]()
@@ -67,6 +69,13 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     var selectedPracticeIDArray_re = [String]()
     var practiceForCountArray_re = [String]()
     var practiceNumbersArray_re = [Int]()
+    var labelRowArray_re = [Int]()
+    var practiceRowArray_re = [Int]()
+
+    var practiceRow: Int = 0
+    var labelRow: Int = 0
+    var labelRowPlus: Int = 0
+    var nextPath: Int!
 
     let imagePickerController = UIImagePickerController()
     var cache: String?
@@ -77,14 +86,17 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     let Ref = Database.database().reference()
 
     override func viewDidLoad() {
-        TableView.dataSource = self
-        TableView.delegate = self
         loadTagData()
         download()
         loadDataPost()
         loadDataAnswer()
         loadDataComment()
         super.viewDidLoad()
+        TableView.dataSource = self
+        TableView.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+          self.TableView.reloadData()
+        }
     }
     func loadTagData(){
         Ref.child("purchase").child("premium").child("answer").child("parameter").child("goodTag").child("all").observeSingleEvent(of: .value, with: {(snapshot) in
@@ -126,49 +138,49 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
           let value = snapshot.value as? NSDictionary
             let key = value?["userName"] as? String ?? ""
             self.userName = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["height"] as? String ?? ""
             self.height = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["weight"] as? String ?? ""
             self.weight = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["memo"] as? String ?? ""
             self.memo = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["date"] as? String ?? ""
             self.date = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["time"] as? String ?? ""
             self.time = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["event"] as? String ?? ""
             self.event = key
-            self.TableView.reloadData()
+            
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
           let value = snapshot.value as? NSDictionary
             let key = value?["PB"] as? String ?? ""
             self.PB = key
-            self.TableView.reloadData()
+            
         })
     }
     func loadDataAnswer(){
@@ -187,7 +199,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     if let key = snap!["tagName"] as? String {
                         self.goodTagNameArray.append(key)
                         self.goodTagNameArray_re = self.goodTagNameArray
-                        self.TableView.reloadData()
+                        
                     }
                 }
                 for key in snapdata.keys.sorted(){
@@ -195,7 +207,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     if let key = snap!["tagID"] as? String {
                         self.goodTagIDArray.append(key)
                         self.goodTagIDArray_re = self.goodTagIDArray
-                        self.TableView.reloadData()
+                        
                     }
                 }
             }
@@ -207,7 +219,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     if let key = snap!["tagName"] as? String {
                         self.badTagNameArray.append(key)
                         self.badTagNameArray_re = self.badTagNameArray
-                        self.TableView.reloadData()
+                        
                     }
                 }
                 for key in snapdata.keys.sorted(){
@@ -216,12 +228,16 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
 
                         self.badTagIDArray.append(key1)
                         self.badTagIDArray_re = self.badTagIDArray
-                        self.TableView.reloadData()
                         
                         self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(key1)").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
                             if let snapdata = snapshot.value as? [String:NSDictionary]{
-                                self.practiceForCountArray.removeAll()
-                                self.practiceForCountArray_re.removeAll()
+                                for key in snapdata.keys.sorted(){
+                                    let snap = snapdata[key]
+                                    if let key2 = snap!["practice"] as? String {
+                                        self.practiceArray.append(key2)
+                                        self.practiceArray_re = self.practiceArray
+                                    }
+                                }
                                 for key in snapdata.keys.sorted(){
                                     let snap = snapdata[key]
                                     if let key2 = snap!["practiceID"] as? String {
@@ -230,19 +246,28 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
 
                                         self.practiceIDArray.append(key2)
                                         self.practiceIDArray_re = self.practiceIDArray
-                                        self.TableView.reloadData()
+                                        
                                     }
                                 }
                                 self.practiceNumbersArray_re.append(self.practiceForCountArray_re.count)
-                                print(self.practiceNumbersArray_re)
-
-                                for key in snapdata.keys.sorted(){
-                                    let snap = snapdata[key]
-                                    if let key2 = snap!["practice"] as? String {
-                                        self.practiceArray.append(key2)
-                                        self.practiceArray_re = self.practiceArray
-                                        self.TableView.reloadData()
+                                self.labelRowArray.removeAll()
+                                self.labelRowArray_re.removeAll()
+                                for number in 0..<self.practiceNumbersArray_re.count{
+                                    if number == 0{
+                                        self.labelRowArray.append(1+self.goodTagNameArray_re.count+1+1)
+                                    }else{
+                                        self.labelRowArray.append(1+self.goodTagNameArray_re.count+1+number+self.practiceNumbersArray_re[number-1]+1)
                                     }
+                                    self.labelRowArray_re = self.labelRowArray
+                                }
+                                self.practiceRowArray.removeAll()
+                                self.practiceRowArray_re.removeAll()
+                                for number in self.labelRowArray_re.first!..<self.goodTagNameArray_re.count + self.badTagNameArray_re.count + self.practiceArray_re.count + 3{
+                                    if self.labelRowArray_re.contains(number){
+                                    }else{
+                                        self.practiceRowArray.append(number)
+                                    }
+                                    self.practiceRowArray_re = self.practiceRowArray
                                 }
                             }
                         })
@@ -263,19 +288,19 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
         let doneItem0 = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done0))
         toolbar0.setItems([spacelItem0, doneItem0], animated: true)
         self.commentTextView.inputAccessoryView = toolbar0
-
-
     }
+    
     func numberOfSections(in myTableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ myTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 4
+        return goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 3
     }
                 
        
     func tableView(_ myTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.row == 0{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPost", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             cell!.userName.text = self.userName
@@ -298,7 +323,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             return cell!
         }else if indexPath.row > 1 && indexPath.row <= 1+goodTagNameArray_re.count{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "\(indexPath.row-1)."+goodTagNameArray_re[indexPath.row-2]
+            cell!.answerLabel.text = "✔︎"+goodTagNameArray_re[indexPath.row-2]
             return cell!
         }else if indexPath.row == 1+goodTagNameArray_re.count+1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -306,23 +331,15 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             cell?.addTag.addTarget(self, action: #selector(addBadTag(_:)), for: .touchUpInside)
             cell!.titleLabel1.backgroundColor = UIColor(red: 83/255, green: 166/255, blue: 165/255, alpha: 1)
             return cell!
-        }else if indexPath.row > 1+goodTagNameArray_re.count+1 && indexPath.row <= 1+goodTagNameArray_re.count+1+badTagNameArray_re.count{
+        }else if labelRowArray_re.contains(indexPath.row){
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "\(indexPath.row+1-1-goodTagNameArray_re.count-2)."+badTagNameArray_re[indexPath.row-(1+goodTagNameArray_re.count+1)-1]
+            cell!.answerLabel.text = "✔︎"+badTagNameArray_re[labelRowArray_re.firstIndex(of:indexPath.row)!]
             return cell!
-        }else if indexPath.row == 1+goodTagNameArray_re.count+1+badTagNameArray_re.count+1{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.titleLabel1.text = "オススメ練習"
-            cell?.addTag.isHidden = true
-            cell!.titleLabel1.backgroundColor = UIColor(red: 130/255, green: 157/255, blue: 241/255, alpha: 1)
-            return cell!
-        }else if indexPath.row > 1+goodTagNameArray_re.count+1+badTagNameArray_re.count+1 && indexPath.row <= 1+goodTagNameArray_re.count+1+badTagNameArray_re.count+1+practiceArray_re.count{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+practiceArray_re[indexPath.row-(1+goodTagNameArray_re.count+1+badTagNameArray_re.count+1)-1]
-            return cell!
-
         }else{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer2", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
+            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPractice", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
+            if practiceRowArray_re.firstIndex(of:indexPath.row) != nil{
+                cell!.answerLabel.text = practiceArray_re[practiceRowArray_re.firstIndex(of:indexPath.row)!]
+            }
             return cell!
         }
     }
@@ -343,7 +360,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     func tableView(_ tableView: UITableView,canEditRowAt indexPath: IndexPath) -> Bool{
         if indexPath.row > 1 && indexPath.row <= 1+goodTagNameArray_re.count{
             return true
-        }else if indexPath.row > 1+goodTagNameArray_re.count+1 && indexPath.row <= 1+goodTagNameArray_re.count+1+badTagNameArray_re.count{
+        }else if labelRowArray_re.contains(indexPath.row){
             return true
         }else{
             return false
@@ -356,14 +373,46 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                 goodTagIDArray_re.remove(at: indexPath.row-2)
                 goodTagNameArray_re.remove(at: indexPath.row-2)
                 TableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-            }else if indexPath.row > 1+goodTagNameArray_re.count+1 && indexPath.row <= 1+goodTagNameArray_re.count+1+badTagNameArray_re.count{
-                badTagIDArray_re.remove(at: indexPath.row-(1+goodTagNameArray_re.count+1)-1)
-                badTagNameArray_re.remove(at: indexPath.row-(1+goodTagNameArray_re.count+1)-1)
+            }else if labelRowArray_re.contains(indexPath.row){
+                let Path:Int = indexPath.row  //スワイプしたセルのindex
+                if indexPath.row == labelRowArray_re.last{
+                    nextPath = goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 3
+                }else{
+                    nextPath = labelRowArray_re[labelRowArray_re.firstIndex(of:indexPath.row)!+1]
+                }
+                //スワイプしたセルの次の改善ポイントセルのindex
+
+                //スワイプしたセルのindex情報をTagIDArray_re及びbadTagNameArray_reから削除
+                badTagIDArray_re.remove(at: labelRowArray_re.firstIndex(of:indexPath.row)!)
+                badTagNameArray_re.remove(at: labelRowArray_re.firstIndex(of:indexPath.row)!)
                 TableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-                practiceIDArray_re.remove(at: indexPath.row-(1+goodTagNameArray_re.count+1)-1)
-                practiceArray_re.remove(at: indexPath.row-(1+goodTagNameArray_re.count+1)-1)
-                let indexPath_re = IndexPath(row: indexPath.row+badTagNameArray_re.count+1, section: 0)
-                TableView.deleteRows(at: [indexPath_re as IndexPath], with: UITableView.RowAnimation.automatic)
+                //スワイプしたセルのindex情報をlabelRowArray_reから削除
+                labelRowArray_re.remove(at: labelRowArray_re.firstIndex(of:indexPath.row)!)
+                //スワイプしたセル以降のlabelRowArray_reのindex情報をそれぞれ必要分（nextPath - Path）差し引く
+                for key in labelRowArray_re.firstIndex(of:nextPath)!..<labelRowArray_re.count{
+                    labelRowArray_re[key] -= nextPath - Path
+                }
+                for number in Path+1..<nextPath{
+                    print(number)
+                    practiceIDArray_re.remove(at: practiceRowArray_re.firstIndex(of:Path+1)!)
+                    practiceArray_re.remove(at: practiceRowArray_re.firstIndex(of:Path+1)!)
+                    let indexPath_re = IndexPath(row: number, section: 0)
+                    TableView.deleteRows(at: [indexPath_re as IndexPath], with: UITableView.RowAnimation.automatic)
+                }
+                //スワイプしたセルの次のセルから直近改善ポイントセルまでのindex情報をpracticeRowArray_reから削除
+                for key in indexPath.row+1..<nextPath{
+                    practiceRowArray_re.remove(at: practiceRowArray_re.firstIndex(of:key)!)
+                }
+                //スワイプしたセル以降のセルのindexをそれぞれ必要分（nextPath - Path）差し引く
+                for key in practiceRowArray_re.firstIndex(of:nextPath+1)!..<practiceRowArray_re.count{
+                    practiceRowArray_re[key] -= nextPath - Path
+                }
+                print(labelRowArray_re)
+                print(self.practiceRowArray_re)
+                print(self.badTagNameArray_re)
+                print(self.practiceArray_re)
+                self.TableView.reloadData()
+
             }
         }
     }
@@ -389,6 +438,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             self.TableView.beginUpdates()
             self.TableView.insertRows(at: [IndexPath(row: 2, section: 0)],with: .automatic)
             self.TableView.endUpdates()
+//            self.TableView.reloadData()
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
         
