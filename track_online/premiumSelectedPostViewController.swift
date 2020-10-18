@@ -19,6 +19,7 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
 
     @IBOutlet var TableView: UITableView!
     @IBOutlet var comment: UILabel!
+    @IBOutlet var commentLabel: UILabel!
     
     var selectedPostID: String?
     var selectedUid: String?
@@ -202,11 +203,21 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
         })
     }
     func loadDataComment(){
+        self.commentLabel.text = "回答待ち"
+        self.commentLabel.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
         Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             let key = value?["comment"] as? String ?? ""
             self.comment.text = key
+            if self.comment.text != nil{
+                self.commentLabel.text = "コメント"
+                self.commentLabel.backgroundColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
+            }
         })
+//        if self.comment.text == nil{
+//            self.commentLabel.text = "回答待ち"
+//            self.commentLabel.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
+//        }
     }
     func numberOfSections(in myTableView: UITableView) -> Int {
         return 1

@@ -28,6 +28,7 @@ class premiumSelectedPostTableViewCell: UITableViewCell {
     @IBOutlet var commentTextView: UITextView!
     @IBOutlet var sendAnswer: UIButton!
     @IBOutlet var addComment: UIButton!
+    @IBOutlet var recommendTrainigLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

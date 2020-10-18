@@ -260,6 +260,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                                     }
                                     self.labelRowArray_re = self.labelRowArray
                                 }
+                                print(self.labelRowArray_re)
                                 self.practiceRowArray.removeAll()
                                 self.practiceRowArray_re.removeAll()
                                 for number in self.labelRowArray_re.first!..<self.goodTagNameArray_re.count + self.badTagNameArray_re.count + self.practiceArray_re.count + 3{
@@ -339,6 +340,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPractice", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             if practiceRowArray_re.firstIndex(of:indexPath.row) != nil{
                 cell!.answerLabel.text = practiceArray_re[practiceRowArray_re.firstIndex(of:indexPath.row)!]
+                cell!.recommendTrainigLabel.text = "おすすめトレーニング\(practiceRowArray_re.firstIndex(of:indexPath.row)!+1)"
             }
             return cell!
         }
@@ -478,17 +480,20 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             self.selectedBadTagNameID = "\(self.allBadTagIDArray[self.pickerview.selectedRow(inComponent: 0)])"
             self.badTagNameArray_re.insert(self.selectedBadTagName!, at: 0)
             self.badTagIDArray_re.insert(self.selectedBadTagNameID!, at: 0)
-            self.TableView.beginUpdates()
-            self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1, section: 0)],with: .automatic)
-            self.TableView.endUpdates()
             
-            for key in 0..<self.labelRowArray_re.count{
-                self.labelRowArray_re[key] += 1
-            }
-            for key in 0..<self.practiceRowArray_re.count{
-                self.practiceRowArray_re[key] += 1
+            if self.labelRowArray_re.count != 0{
+                for key in 0..<self.labelRowArray_re.count{
+                    self.labelRowArray_re[key] += 1
+                }
+                for key in 0..<self.practiceRowArray_re.count{
+                    self.practiceRowArray_re[key] += 1
+                }
             }
             self.labelRowArray_re.insert(self.goodTagNameArray_re.count+3, at: 0)
+
+            self.TableView.beginUpdates()
+            self.TableView.insertRows(at: [IndexPath(row: self.goodTagNameArray_re.count+3, section: 0)],with: .automatic)
+            self.TableView.endUpdates()
 
             self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("badTag").child("all").child("\(self.selectedBadTagNameID!)").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
                 if let snapdata = snapshot.value as? [String:NSDictionary]{
@@ -497,13 +502,21 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                         if let key = snap!["practice"] as? String {
                             self.selectedPractice = key
                             self.practiceArray_re.insert(self.selectedPractice!, at: 0)
-                            for key in 0..<self.practiceRowArray_re.count{
-                                self.practiceRowArray_re[key] += 1
-                            }
-                            for key in 1..<self.labelRowArray_re.count{
-                                self.labelRowArray_re[key] += 1
-                            }
                             self.practiceRowArray_re.insert(self.goodTagNameArray_re.count+4, at: 0)
+                            if self.practiceRowArray_re.count >= 2{
+                                for key in 1..<self.practiceRowArray_re.count{
+                                    self.practiceRowArray_re[key] += 1
+                                }
+                            }
+                            if self.labelRowArray_re.count >= 2{
+                                for key in 1..<self.labelRowArray_re.count{
+                                    self.labelRowArray_re[key] += 1
+                                }
+                            }
+                            print(self.labelRowArray_re)
+                            print(self.practiceRowArray_re)
+                            print(self.badTagNameArray_re)
+
                             self.TableView.beginUpdates()
                             self.TableView.insertRows(at: [IndexPath(row: self.goodTagNameArray_re.count+4, section: 0)],with: .automatic)
                             self.TableView.endUpdates()
@@ -633,6 +646,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                                 ref1.observeSingleEvent(of: .value, with: { (snapshot) in
                                   let value = snapshot.value as? NSDictionary
                                     let key1 = value?["practice"] as? String ?? ""
+                                    print(key1)
                                     let data = ["practice":"\(key1)","tagID":"\(self.badTagIDArray_re[number])","tagName":"\(self.badTagNameArray_re[number])"]
                                     let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(self.badTagIDArray_re[number])").child("practice").child("\(key)")
                                     ref.updateChildValues(data)
