@@ -330,8 +330,61 @@
                                             <outlet property="answerLabel" destination="39O-Ch-K7V" id="9L6-D1-Kjp"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellPractice" rowHeight="40" id="rVO-yV-kVH" customClass="premiumSelectedPostTableViewCell" customModule="track_biz" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="497.5" width="414" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rVO-yV-kVH" id="jEO-C2-QTk">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sW4-DZ-dWY">
+                                                    <rect key="frame" x="135" y="13" width="259" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オススメ!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skq-dI-XJQ">
+                                                    <rect key="frame" x="60" y="10" width="70" height="20"/>
+                                                    <color key="backgroundColor" red="0.50980392159999999" green="0.61568627450000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="J1H-Pj-PQk"/>
+                                                        <constraint firstAttribute="width" constant="70" id="pFW-cb-iwr"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEn-P4-QiC">
+                                                    <rect key="frame" x="42" y="18.5" width="15" height="3"/>
+                                                    <color key="backgroundColor" red="0.50980392159999999" green="0.61568627450000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="3" id="lyh-1j-GfZ"/>
+                                                        <constraint firstAttribute="width" constant="15" id="sZy-df-Fwa"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FEn-P4-QiC" firstAttribute="centerY" secondItem="Skq-dI-XJQ" secondAttribute="centerY" id="7J5-Yc-Pcj"/>
+                                                <constraint firstItem="Skq-dI-XJQ" firstAttribute="top" secondItem="jEO-C2-QTk" secondAttribute="top" constant="10" id="C2L-zS-zfD"/>
+                                                <constraint firstItem="sW4-DZ-dWY" firstAttribute="trailing" secondItem="jEO-C2-QTk" secondAttribute="trailingMargin" id="OdU-Pk-ffr"/>
+                                                <constraint firstItem="sW4-DZ-dWY" firstAttribute="leading" secondItem="Skq-dI-XJQ" secondAttribute="trailing" constant="5" id="U2G-n2-ddt"/>
+                                                <constraint firstItem="Skq-dI-XJQ" firstAttribute="leading" secondItem="jEO-C2-QTk" secondAttribute="leading" constant="60" id="jed-Dz-D3d"/>
+                                                <constraint firstItem="sW4-DZ-dWY" firstAttribute="centerY" secondItem="Skq-dI-XJQ" secondAttribute="centerY" id="l7L-yn-M6D"/>
+                                                <constraint firstItem="Skq-dI-XJQ" firstAttribute="leading" secondItem="FEn-P4-QiC" secondAttribute="trailing" constant="3" id="sCD-O9-lGH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="answerLabel" destination="sW4-DZ-dWY" id="gjw-Yg-Iow"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellAnswer2" id="nBm-XL-2eq" customClass="premiumSelectedPostTableViewCell" customModule="track_biz" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="497.5" width="414" height="143"/>
+                                        <rect key="frame" x="0.0" y="537.5" width="414" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nBm-XL-2eq" id="pz0-cS-vTs">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="143"/>
@@ -666,18 +719,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="評価タグ一覧" id="iEv-Pg-xSu">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" image="tag.fill" catalog="system" id="hff-GH-BCf">
-                                <connections>
-                                    <segue destination="gpB-Jq-cv9" kind="show" id="V5C-7c-AUr"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="sportscourt.fill" catalog="system" id="5Dv-y6-WJ3">
-                                <connections>
-                                    <segue destination="60d-Gq-HKH" kind="show" id="9q6-Fz-UuS"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="tag.fill" catalog="system" id="hff-GH-BCf">
+                            <connections>
+                                <segue destination="gpB-Jq-cv9" kind="show" id="V5C-7c-AUr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="TableView" destination="Dcs-59-Win" id="hE6-tR-XAE"/>
@@ -1638,7 +1684,7 @@
             </objects>
             <point key="canvasLocation" x="2269.5652173913045" y="186.83035714285714"/>
         </scene>
-        <!--練習リスト-->
+        <!--練習リスト一覧-->
         <scene sceneID="g60-xG-Sgq">
             <objects>
                 <viewController id="V8G-YY-uqu" customClass="premiumPracticeListViewController" customModule="track_biz" customModuleProvider="target" sceneMemberID="viewController">
@@ -1692,7 +1738,13 @@
                             <constraint firstItem="pLg-QM-X3k" firstAttribute="leading" secondItem="qNR-tR-S2o" secondAttribute="leading" id="nY0-z2-zUh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="練習リスト" id="oem-r1-Vrq"/>
+                    <navigationItem key="navigationItem" title="練習リスト一覧" id="oem-r1-Vrq">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="sportscourt.fill" catalog="system" id="ztt-NM-3ns">
+                            <connections>
+                                <segue destination="60d-Gq-HKH" kind="show" id="9rO-W8-aw0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="TableView" destination="pLg-QM-X3k" id="Oqb-1z-HtT"/>
                     </connections>

@@ -433,12 +433,21 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
         let okAction = UIAlertAction(title: "OK",style: UIAlertAction.Style.default,handler:{(action: UIAlertAction) -> Void in
             self.selectedGoodTagName = "\(self.allGoodTagNameArray[self.pickerview.selectedRow(inComponent: 0)])"
             self.selectedGoodTagNameID = "\(self.allGoodTagIDArray[self.pickerview.selectedRow(inComponent: 0)])"
+            for key in 0..<self.labelRowArray_re.count{
+                self.labelRowArray_re[key] += 1
+            }
+            for key in 0..<self.practiceRowArray_re.count{
+                self.practiceRowArray_re[key] += 1
+            }
+//            self.goodTagNameArray_re.append(self.selectedGoodTagName!)
+//            self.goodTagIDArray_re.append(self.selectedGoodTagNameID!)
+//            self.TableView.reloadData()
+
             self.goodTagNameArray_re.insert(self.selectedGoodTagName!, at: 0)
             self.goodTagIDArray_re.insert(self.selectedGoodTagNameID!, at: 0)
             self.TableView.beginUpdates()
             self.TableView.insertRows(at: [IndexPath(row: 2, section: 0)],with: .automatic)
             self.TableView.endUpdates()
-//            self.TableView.reloadData()
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
         
@@ -472,6 +481,14 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             self.TableView.beginUpdates()
             self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1, section: 0)],with: .automatic)
             self.TableView.endUpdates()
+            
+            for key in 0..<self.labelRowArray_re.count{
+                self.labelRowArray_re[key] += 1
+            }
+            for key in 0..<self.practiceRowArray_re.count{
+                self.practiceRowArray_re[key] += 1
+            }
+            self.labelRowArray_re.insert(self.goodTagNameArray_re.count+3, at: 0)
 
             self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("badTag").child("all").child("\(self.selectedBadTagNameID!)").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
                 if let snapdata = snapshot.value as? [String:NSDictionary]{
@@ -480,8 +497,15 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                         if let key = snap!["practice"] as? String {
                             self.selectedPractice = key
                             self.practiceArray_re.insert(self.selectedPractice!, at: 0)
+                            for key in 0..<self.practiceRowArray_re.count{
+                                self.practiceRowArray_re[key] += 1
+                            }
+                            for key in 1..<self.labelRowArray_re.count{
+                                self.labelRowArray_re[key] += 1
+                            }
+                            self.practiceRowArray_re.insert(self.goodTagNameArray_re.count+4, at: 0)
                             self.TableView.beginUpdates()
-                            self.TableView.insertRows(at: [IndexPath(row: 2+self.goodTagNameArray_re.count+1+self.badTagNameArray_re.count+1, section: 0)],with: .automatic)
+                            self.TableView.insertRows(at: [IndexPath(row: self.goodTagNameArray_re.count+4, section: 0)],with: .automatic)
                             self.TableView.endUpdates()
                         }
                     }
@@ -494,6 +518,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     }
                 }
             })
+
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
         
