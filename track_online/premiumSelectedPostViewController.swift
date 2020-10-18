@@ -18,6 +18,7 @@ import AssetsLibrary
 class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet var TableView: UITableView!
+    @IBOutlet var comment: UILabel!
     
     var selectedPostID: String?
     var selectedUid: String?
@@ -30,15 +31,22 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     var time: String?
     var event: String?
     var PB: String?
-    var comment: String?
 
-    var goodTagArray = [String]()
-    var badTagArray = [String]()
+    var goodTagNameArray = [String]()
+    var badTagNameArray = [String]()
     var practiceArray = [String]()
+    var practiceForCountArray = [String]()
+    var practiceNumbersArray = [Int]()
+    var labelRowArray = [Int]()
+    var practiceRowArray = [Int]()
 
-    var goodTagArray_re = [String]()
-    var badTagArray_re = [String]()
+    var goodTagNameArray_re = [String]()
+    var badTagNameArray_re = [String]()
     var practiceArray_re = [String]()
+    var practiceForCountArray_re = [String]()
+    var practiceNumbersArray_re = [Int]()
+    var labelRowArray_re = [Int]()
+    var practiceRowArray_re = [Int]()
 
     let imagePickerController = UIImagePickerController()
     var cache: String?
@@ -52,12 +60,16 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     let Ref = Database.database().reference()
 
     override func viewDidLoad() {
-        TableView.dataSource = self
-        TableView.delegate = self
         download()
         loadDataPost()
         loadDataAnswer()
+        loadDataComment()
         super.viewDidLoad()
+        TableView.dataSource = self
+        TableView.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+          self.TableView.reloadData()
+        }
     }
     func loadDataPost(){
         let ref1 = Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)")
@@ -112,28 +124,21 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
 
     }
     func loadDataAnswer(){
-        goodTagArray.removeAll()
-        badTagArray.removeAll()
+        goodTagNameArray.removeAll()
+        badTagNameArray.removeAll()
         practiceArray.removeAll()
 
-        goodTagArray_re.removeAll()
-        badTagArray_re.removeAll()
+        goodTagNameArray_re.removeAll()
+        badTagNameArray_re.removeAll()
         practiceArray_re.removeAll()
-
-        Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let key = value?["comment"] as? String ?? ""
-            self.comment = key
-            self.TableView.reloadData()
-        })
 
         Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("goodTag").observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapdata = snapshot.value as? [String:NSDictionary]{
                 for key in snapdata.keys.sorted(){
                     let snap = snapdata[key]
                     if let key = snap!["tagName"] as? String {
-                        self.goodTagArray.append(key)
-                        self.goodTagArray_re = self.goodTagArray.reversed()
+                        self.goodTagNameArray.append(key)
+                        self.goodTagNameArray_re = self.goodTagNameArray.reversed()
                         self.TableView.reloadData()
                     }
                 }
@@ -144,24 +149,63 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
                 for key in snapdata.keys.sorted(){
                     let snap = snapdata[key]
                     if let key = snap!["tagName"] as? String {
-                        self.badTagArray.append(key)
-                        self.badTagArray_re = self.badTagArray.reversed()
-                        self.TableView.reloadData()
+                        self.badTagNameArray.append(key)
+                        self.badTagNameArray_re = self.badTagNameArray
+                        
+                    }
+                }
+                for key in snapdata.keys.sorted(){
+                    let snap = snapdata[key]
+                    if let key1 = snap!["tagID"] as? String {
+                        
+                        self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("badTag").child("\(key1)").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
+                            if let snapdata = snapshot.value as? [String:NSDictionary]{
+                                for key in snapdata.keys.sorted(){
+                                    let snap = snapdata[key]
+                                    if let key2 = snap!["practice"] as? String {
+                                        self.practiceArray.append(key2)
+                                        self.practiceArray_re = self.practiceArray
+                                    }
+                                }
+                                for key in snapdata.keys.sorted(){
+                                    let snap = snapdata[key]
+                                    if let key2 = snap!["practiceID"] as? String {
+                                        self.practiceForCountArray.append(key2)
+                                        self.practiceForCountArray_re = self.practiceForCountArray
+                                    }
+                                }
+                                self.practiceNumbersArray_re.append(self.practiceForCountArray_re.count)
+                                self.labelRowArray.removeAll()
+                                self.labelRowArray_re.removeAll()
+                                for number in 0..<self.practiceNumbersArray_re.count{
+                                    if number == 0{
+                                        self.labelRowArray.append(1+self.goodTagNameArray_re.count+1+1)
+                                    }else{
+                                        self.labelRowArray.append(1+self.goodTagNameArray_re.count+1+number+self.practiceNumbersArray_re[number-1]+1)
+                                    }
+                                    self.labelRowArray_re = self.labelRowArray
+                                }
+                                self.practiceRowArray.removeAll()
+                                self.practiceRowArray_re.removeAll()
+                                for number in self.labelRowArray_re.first!..<self.goodTagNameArray_re.count + self.badTagNameArray_re.count + self.practiceArray_re.count + 3{
+                                    if self.labelRowArray_re.contains(number){
+                                    }else{
+                                        self.practiceRowArray.append(number)
+                                    }
+                                    self.practiceRowArray_re = self.practiceRowArray
+                                }
+                            }
+                        })
                     }
                 }
             }
         })
-        Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("practice").observeSingleEvent(of: .value, with: {(snapshot) in
-            if let snapdata = snapshot.value as? [String:NSDictionary]{
-                for key in snapdata.keys.sorted(){
-                    let snap = snapdata[key]
-                    if let key = snap!["practice"] as? String {
-                        self.practiceArray.append(key)
-                        self.practiceArray_re = self.practiceArray.reversed()
-                        self.TableView.reloadData()
-                    }
-                }
-            }
+    }
+    func loadDataComment(){
+        Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let key = value?["comment"] as? String ?? ""
+            self.comment.text = key
         })
     }
     func numberOfSections(in myTableView: UITableView) -> Int {
@@ -169,16 +213,15 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     }
 
     func tableView(_ myTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if goodTagArray_re.isEmpty == true{
+        if goodTagNameArray_re.isEmpty == true{
             return 1
         }else{
-            return goodTagArray_re.count + badTagArray_re.count + practiceArray_re.count + 5
+            return goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 3
         }
     }
                 
        
     func tableView(_ myTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(goodTagArray_re)
         if indexPath.row == 0{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPost", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             cell!.userName.text = self.userName
@@ -198,39 +241,24 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             cell!.titleLabel1.text = "良いポイント"
             return cell!
-        }else if indexPath.row > 1 && indexPath.row <= 1+goodTagArray_re.count{
+        }else if indexPath.row > 1 && indexPath.row <= 1+goodTagNameArray_re.count{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+goodTagArray_re[indexPath.row-2]
+            cell!.answerLabel.text = "✔︎"+goodTagNameArray_re[indexPath.row-2]
             return cell!
-
-        }else if indexPath.row == 1+goodTagArray_re.count+1{
+        }else if indexPath.row == 1+goodTagNameArray_re.count+1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             cell!.titleLabel1.text = "改善ポイント"
             cell!.titleLabel1.backgroundColor = UIColor(red: 83/255, green: 166/255, blue: 165/255, alpha: 1)
             return cell!
-        }else if indexPath.row > 1+goodTagArray_re.count+1 && indexPath.row <= 1+goodTagArray_re.count+1+badTagArray_re.count{
+        }else if labelRowArray_re.contains(indexPath.row){
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+badTagArray_re[indexPath.row-(1+goodTagArray_re.count+1)-1]
+            cell!.answerLabel.text = "✔︎"+badTagNameArray_re[labelRowArray_re.firstIndex(of:indexPath.row)!]
             return cell!
-
-        }else if indexPath.row == 1+goodTagArray_re.count+1+badTagArray_re.count+1{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.titleLabel1.text = "オススメ練習"
-            cell!.titleLabel1.backgroundColor = UIColor(red: 130/255, green: 157/255, blue: 241/255, alpha: 1)
-            return cell!
-
-        }else if indexPath.row > 1+goodTagArray_re.count+1+badTagArray_re.count+1 && indexPath.row <= 1+goodTagArray_re.count+1+badTagArray_re.count+1+practiceArray_re.count{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.answerLabel.text = "✔︎"+practiceArray_re[indexPath.row-(1+goodTagArray_re.count+1+badTagArray_re.count+1)-1]
-            return cell!
-
-        }else if indexPath.row == 1+goodTagArray_re.count+1+badTagArray_re.count+1+practiceArray_re.count+1{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellAnswer2", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
-            cell!.comment.text = self.comment
-            return cell!
-
         }else{
-            let cell = self.TableView.dequeueReusableCell(withIdentifier: "", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
+            let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPractice", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
+            if practiceRowArray_re.firstIndex(of:indexPath.row) != nil{
+                cell!.answerLabel.text = practiceArray_re[practiceRowArray_re.firstIndex(of:indexPath.row)!]
+            }
             return cell!
         }
     }
