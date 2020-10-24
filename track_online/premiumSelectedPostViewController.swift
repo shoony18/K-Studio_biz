@@ -269,6 +269,7 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPractice", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             if practiceRowArray_re.firstIndex(of:indexPath.row) != nil{
                 cell!.answerLabel.text = practiceArray_re[practiceRowArray_re.firstIndex(of:indexPath.row)!]
+                cell!.recommendTrainigLabel.text = "おすすめトレーニング\(practiceRowArray_re.firstIndex(of:indexPath.row)!+1)"
             }
             return cell!
         }

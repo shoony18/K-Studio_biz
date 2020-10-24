@@ -377,10 +377,13 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                 TableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
             }else if labelRowArray_re.contains(indexPath.row){
                 let Path:Int = indexPath.row  //スワイプしたセルのindex
+                var lastFlag:Int  //スワイプしたセルのindexがlabelRowArray_re.lastであるかの確認フラグ
                 if indexPath.row == labelRowArray_re.last{
                     nextPath = goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 3
+                    lastFlag = 1
                 }else{
                     nextPath = labelRowArray_re[labelRowArray_re.firstIndex(of:indexPath.row)!+1]
+                    lastFlag = 0
                 }
                 //スワイプしたセルの次の改善ポイントセルのindex
 
@@ -391,14 +394,16 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                 //スワイプしたセルのindex情報をlabelRowArray_reから削除
                 labelRowArray_re.remove(at: labelRowArray_re.firstIndex(of:indexPath.row)!)
                 //スワイプしたセル以降のlabelRowArray_reのindex情報をそれぞれ必要分（nextPath - Path）差し引く
-                for key in labelRowArray_re.firstIndex(of:nextPath)!..<labelRowArray_re.count{
-                    labelRowArray_re[key] -= nextPath - Path
+                if lastFlag == 0{
+                    for key in labelRowArray_re.firstIndex(of:nextPath)!..<labelRowArray_re.count{
+                        labelRowArray_re[key] -= nextPath - Path
+                    }
                 }
                 for number in Path+1..<nextPath{
                     print(number)
                     practiceIDArray_re.remove(at: practiceRowArray_re.firstIndex(of:Path+1)!)
                     practiceArray_re.remove(at: practiceRowArray_re.firstIndex(of:Path+1)!)
-                    let indexPath_re = IndexPath(row: number, section: 0)
+                    let indexPath_re = IndexPath(row: Path, section: 0)
                     TableView.deleteRows(at: [indexPath_re as IndexPath], with: UITableView.RowAnimation.automatic)
                 }
                 //スワイプしたセルの次のセルから直近改善ポイントセルまでのindex情報をpracticeRowArray_reから削除
@@ -406,8 +411,10 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                     practiceRowArray_re.remove(at: practiceRowArray_re.firstIndex(of:key)!)
                 }
                 //スワイプしたセル以降のセルのindexをそれぞれ必要分（nextPath - Path）差し引く
-                for key in practiceRowArray_re.firstIndex(of:nextPath+1)!..<practiceRowArray_re.count{
-                    practiceRowArray_re[key] -= nextPath - Path
+                if lastFlag == 0{
+                    for key in practiceRowArray_re.firstIndex(of:nextPath+1)!..<practiceRowArray_re.count{
+                        practiceRowArray_re[key] -= nextPath - Path
+                    }
                 }
                 print(labelRowArray_re)
                 print(self.practiceRowArray_re)

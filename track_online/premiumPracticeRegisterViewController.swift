@@ -28,11 +28,17 @@ class premiumPracticeRegisterViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
     @IBAction func inputPractice(_ sender: Any) {
         practice.text = (sender as AnyObject).text
     }
-    
+
+    @IBAction func inputMotionType(_ sender: Any) {
+        motionType.text = (sender as AnyObject).text
+    }
+    @IBAction func inputBodyParts(_ sender: Any) {
+        bodyParts.text = (sender as AnyObject).text
+    }
+
     @IBAction func register(_ sender: Any) {
         
         let now = NSDate()
