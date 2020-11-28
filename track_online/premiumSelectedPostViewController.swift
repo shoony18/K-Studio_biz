@@ -16,14 +16,14 @@ import MobileCoreServices
 import AssetsLibrary
 
 class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    
     @IBOutlet var TableView: UITableView!
     @IBOutlet var comment: UILabel!
     @IBOutlet var commentLabel: UILabel!
     
     var selectedPostID: String?
     var selectedUid: String?
-
+    
     var userName: String?
     var height: String?
     var weight: String?
@@ -32,7 +32,8 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     var time: String?
     var event: String?
     var PB: String?
-
+    var answerFlag: String?
+    
     var goodTagNameArray = [String]()
     var badTagNameArray = [String]()
     var practiceArray = [String]()
@@ -40,7 +41,7 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     var practiceNumbersArray = [Int]()
     var labelRowArray = [Int]()
     var practiceRowArray = [Int]()
-
+    
     var goodTagNameArray_re = [String]()
     var badTagNameArray_re = [String]()
     var practiceArray_re = [String]()
@@ -48,18 +49,18 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     var practiceNumbersArray_re = [Int]()
     var labelRowArray_re = [Int]()
     var practiceRowArray_re = [Int]()
-
+    
     let imagePickerController = UIImagePickerController()
     var cache: String?
     var videoURL: URL?
     var playUrl:NSURL?
     var data:Data?
     var pickerview: UIPickerView = UIPickerView()
-
+    
     let currentUid:String = Auth.auth().currentUser!.uid
     let currentUserName:String = Auth.auth().currentUser!.displayName!
     let Ref = Database.database().reference()
-
+    
     override func viewDidLoad() {
         download()
         loadDataPost()
@@ -69,70 +70,75 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
         TableView.dataSource = self
         TableView.delegate = self
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-          self.TableView.reloadData()
+            self.TableView.reloadData()
         }
     }
     func loadDataPost(){
         let ref1 = Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)")
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["userName"] as? String ?? ""
             self.userName = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["height"] as? String ?? ""
             self.height = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["weight"] as? String ?? ""
             self.weight = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["memo"] as? String ?? ""
             self.memo = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["date"] as? String ?? ""
             self.date = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["time"] as? String ?? ""
             self.time = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["event"] as? String ?? ""
             self.event = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
-          let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? NSDictionary
             let key = value?["PB"] as? String ?? ""
             self.PB = key
             self.TableView.reloadData()
         })
-
+        ref1.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let key = value?["answerFlag"] as? String ?? ""
+            self.answerFlag = key
+        })
+        
     }
     func loadDataAnswer(){
         goodTagNameArray.removeAll()
         badTagNameArray.removeAll()
         practiceArray.removeAll()
-
+        
         goodTagNameArray_re.removeAll()
         badTagNameArray_re.removeAll()
         practiceArray_re.removeAll()
-
+        
         Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").child("goodTag").observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapdata = snapshot.value as? [String:NSDictionary]{
                 for key in snapdata.keys.sorted(){
@@ -203,26 +209,24 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
         })
     }
     func loadDataComment(){
-        self.commentLabel.text = "回答待ち"
-        self.commentLabel.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
+        
         Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("answer").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             let key = value?["comment"] as? String ?? ""
             self.comment.text = key
-            if self.comment.text != nil{
-                self.commentLabel.text = "コメント"
-                self.commentLabel.backgroundColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
+            if self.comment.text != ""{
+                self.commentLabel.backgroundColor = UIColor(red: 93/255, green: 93/255, blue: 93/255, alpha: 1)
             }
         })
-//        if self.comment.text == nil{
-//            self.commentLabel.text = "回答待ち"
-//            self.commentLabel.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
-//        }
+        //        if self.comment.text == nil{
+        //            self.commentLabel.text = "回答待ち"
+        //            self.commentLabel.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
+        //        }
     }
     func numberOfSections(in myTableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ myTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if goodTagNameArray_re.isEmpty == true{
             return 1
@@ -230,8 +234,8 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             return goodTagNameArray_re.count + badTagNameArray_re.count + practiceArray_re.count + 3
         }
     }
-                
-       
+    
+    
     func tableView(_ myTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPost", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -247,6 +251,13 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             let refImage = Storage.storage().reference().child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("\(textImage)")
             cell!.ImageView.sd_setImage(with: refImage, placeholderImage: nil)
             cell?.playVideo.addTarget(self, action: #selector(playVideo(_:)), for: .touchUpInside)
+            
+            if goodTagNameArray_re.isEmpty == false{
+                cell!.adviseText.text = "track専属コーチからのアドバイス"
+            }else{
+                cell!.adviseText.text = "アドバイスはまだ届いておりません"
+            }
+            
             return cell!
         }else if indexPath.row == 1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -274,36 +285,42 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             return cell!
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "answerForm1", sender: nil)
     }
-        
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "answerForm1") {
             if #available(iOS 13.0, *) {
                 let nextData: premiumAnswer1ViewController = segue.destination as! premiumAnswer1ViewController
-                          nextData.selectedPostID = self.selectedPostID!
-                          nextData.selectedUid = self.selectedUid!
+                nextData.selectedPostID = self.selectedPostID!
+                nextData.selectedUid = self.selectedUid!
+                print(self.answerFlag!)
+                if self.answerFlag == "0"{
+                    let data = ["answerFlag":"1"]
+                    let ref = self.Ref.child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)")
+                    ref.updateChildValues(data)
+                }
             } else {
             }
         }
     }
-
+    
     @objc func playVideo(_ sender: UIButton) {
         let player = AVPlayer(url: playUrl! as URL
         )
-
+        
         // Create a new AVPlayerViewController and pass it a reference to the player.
         let controller = AVPlayerViewController()
         controller.player = player
-
+        
         // Modally present the player and call the player's play() method when complete.
         present(controller, animated: true) {
             controller.player!.play()
         }
     }
-
+    
     func download(){
         let textVideo:String = selectedPostID!+".mp4"
         let refVideo = Storage.storage().reference().child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("\(textVideo)")
@@ -314,14 +331,14 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
                 print("download success!! URL:", url!)
             }
         }
-//        if self.cache == "1"{
-//            SDImageCache.shared.clearMemory()
-//            SDImageCache.shared.clearDisk()
-//            let ref0 = Database.database().reference().child("QA").child("\(currentUid)").child("private").child("\(text!)")
-//            let data = ["cache":"0" as Any] as [String : Any]
-//            ref0.updateChildValues(data)
-//        }
+        //        if self.cache == "1"{
+        //            SDImageCache.shared.clearMemory()
+        //            SDImageCache.shared.clearDisk()
+        //            let ref0 = Database.database().reference().child("QA").child("\(currentUid)").child("private").child("\(text!)")
+        //            let data = ["cache":"0" as Any] as [String : Any]
+        //            ref0.updateChildValues(data)
+        //        }
     }
-
+    
     
 }

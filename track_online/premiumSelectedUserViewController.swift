@@ -146,11 +146,14 @@ class premiumSelectedUserViewController: UIViewController ,UITableViewDelegate,U
             cell!.time.text = self.timeArray_re[indexPath.row]
             cell!.event.text = self.eventArray_re[indexPath.row]
             if self.answerFlagArray_re[indexPath.row] == "1"{
+                cell!.status.text = "分析中"
+                cell!.status.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
+            }else if self.answerFlagArray_re[indexPath.row] == "2"{
                 cell!.status.text = "回答あり"
                 cell!.status.backgroundColor = UIColor(red: 235/255, green: 109/255, blue: 113/255, alpha: 1)
             }else{
                 cell!.status.text = "回答待ち"
-                cell!.status.backgroundColor = UIColor(red: 25/255, green: 86/255, blue: 154/255, alpha: 1)
+                cell!.status.backgroundColor = UIColor(red: 93/255, green: 175/255, blue: 175/255, alpha: 1)
             }
             
             let textImage:String = self.postIDArray_re[indexPath.row]+".png"
