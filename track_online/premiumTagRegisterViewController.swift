@@ -41,7 +41,9 @@ class premiumTagRegisterViewController: UIViewController,UITextFieldDelegate,UIP
     @IBOutlet var tagGenre: UITextField!
     @IBOutlet var tagName: UITextField!
     @IBOutlet var motionType: UITextField!
-    @IBOutlet var bodyParts: UITextField!
+    @IBOutlet var motionPhase: UITextField!
+    @IBOutlet var bodyParts1: UITextField!
+    @IBOutlet var bodyParts2: UITextField!
     @IBOutlet var cause: UITextField!
     @IBOutlet var practice1: UITextField!
     @IBOutlet var practice2: UITextField!
@@ -63,8 +65,14 @@ class premiumTagRegisterViewController: UIViewController,UITextFieldDelegate,UIP
     @IBAction func inputMotionType(_ sender: Any) {
         motionType.text = (sender as AnyObject).text
     }
-    @IBAction func inputBodyParts(_ sender: Any) {
-        bodyParts.text = (sender as AnyObject).text
+    @IBAction func inputMotionPhase(_ sender: Any) {
+        motionPhase.text = (sender as AnyObject).text
+    }
+    @IBAction func inputbodyParts1(_ sender: Any) {
+        bodyParts1.text = (sender as AnyObject).text
+    }
+    @IBAction func inputbodyParts2(_ sender: Any) {
+        bodyParts2.text = (sender as AnyObject).text
     }
     @IBAction func inputCause(_ sender: Any) {
         cause.text = (sender as AnyObject).text
@@ -236,30 +244,30 @@ class premiumTagRegisterViewController: UIViewController,UITextFieldDelegate,UIP
         let formatter2 = DateFormatter()
         formatter2.setLocalizedDateFormatFromTemplate("jm")
         let time = formatter2.string(from: date2)
-        let alert: UIAlertController = UIAlertController(title: "確認", message: "この内容で送信します。一度送信すると内容を修正できません。よろしいですか？", preferredStyle:  UIAlertController.Style.alert)
+        let alert: UIAlertController = UIAlertController(title: "確認", message: "この内容で送信します。よろしいですか？", preferredStyle:  UIAlertController.Style.alert)
         let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
             (action: UIAlertAction!) -> Void in
             
             let ref0 = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("\(self.tagGenre.text!)").child("all").child("\(self.tagGenre.text!)"+"_"+"\(timenow)")
-            let data0 = ["tagID":"\(self.tagGenre.text!)"+"_"+"\(timenow)","tagName":"\(self.tagName.text!)","motionType":"\(self.motionType.text!)","bodyParts":"\(self.bodyParts.text!)","cause":"\(self.cause.text!)","comment":"\(self.comment.text!)","practice":"\(self.practice1.text!)"+"/"+"\(self.practice2.text!)"+"/"+"\(self.practice3.text!)"]
+            let data0 = ["tagID":"\(self.tagGenre.text!)"+"_"+"\(timenow)","tagName":"\(self.tagName.text!)","motionType":"\(self.motionType.text!)","motionPhase":"\(self.motionPhase.text!)","bodyParts1":"\(self.bodyParts1.text!)","bodyParts2":"\(self.bodyParts2.text!)","cause":"\(self.cause.text!)","comment":"\(self.comment.text!)","practice":"\(self.practice1.text!)"+"/"+"\(self.practice2.text!)"+"/"+"\(self.practice3.text!)"]
             ref0.setValue(data0)
 
             if self.tagGenre.text == "badTag"{
-                for key in 0...self.selectedPracticeIDArray.count-1{
+                for key in 0..<self.selectedPracticeIDArray.count{
                     let ref1 = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("\(self.tagGenre.text!)").child("all").child("\(self.tagGenre.text!)"+"_"+"\(timenow)").child("practice").child("\(self.selectedPracticeIDArray[key])")
                     let data1 = ["practiceID":"\(self.selectedPracticeIDArray[key])","practice":"\(self.selectedPracticeArray[key])"]
                     ref1.setValue(data1)
                 }
             }
             self.tagGenre.text = ""
-            self.tagName.text = ""
-            self.motionType.text = ""
-            self.bodyParts.text = ""
-            self.cause.text = ""
-            self.comment.text = ""
-            self.practice1.text = ""
-            self.practice2.text = ""
-            self.practice3.text = ""
+//            self.tagName.text = ""
+//            self.motionType.text = ""
+//            self.bodyParts1.text = ""
+//            self.cause.text = ""
+//            self.comment.text = ""
+//            self.practice1.text = ""
+//            self.practice2.text = ""
+//            self.practice3.text = ""
 
         })
 

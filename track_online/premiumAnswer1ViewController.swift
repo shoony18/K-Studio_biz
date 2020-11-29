@@ -318,7 +318,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             let refImage = Storage.storage().reference().child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("\(textImage)")
             cell!.ImageView.sd_setImage(with: refImage, placeholderImage: nil)
             cell?.playVideo.addTarget(self, action: #selector(playVideo(_:)), for: .touchUpInside)
-                        
+            
             return cell!
         }else if indexPath.row == 1{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellLabel1", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
@@ -343,7 +343,7 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "cellPractice", for: indexPath as IndexPath) as? premiumSelectedPostTableViewCell
             if practiceRowArray_re.firstIndex(of:indexPath.row) != nil{
                 cell!.answerLabel.text = practiceArray_re[practiceRowArray_re.firstIndex(of:indexPath.row)!]
-                cell!.recommendTrainigLabel.text = "おすすめトレーニング\(practiceRowArray_re.firstIndex(of:indexPath.row)!+1)"
+                cell!.recommendTrainigLabel.text = "おすすめトレーニング"
             }
             return cell!
         }
@@ -435,12 +435,12 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     @objc func addGoodTag(_ sender: UIButton) {
         currentPickerviewFlag = "good"
         let alert: UIAlertController = UIAlertController(title: "タグを追加",message: "追加したいタグを選択してください",preferredStyle: UIAlertController.Style.alert)
-        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 350)
-        let width:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 350)
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 500)
+        let width:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: alert.view.bounds.width)
         alert.view.addConstraint(height)
         alert.view.addConstraint(width)
-        print(alert.view.bounds.height)
-        print(alert.view.bounds.width)
+        print(height)
+        print(width)
         let okAction = UIAlertAction(title: "OK",style: UIAlertAction.Style.default,handler:{(action: UIAlertAction) -> Void in
             self.selectedGoodTagName = "\(self.allGoodTagNameArray[self.pickerview.selectedRow(inComponent: 0)])"
             self.selectedGoodTagNameID = "\(self.allGoodTagIDArray[self.pickerview.selectedRow(inComponent: 0)])"
@@ -459,16 +459,33 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
             self.TableView.beginUpdates()
             self.TableView.insertRows(at: [IndexPath(row: 2, section: 0)],with: .automatic)
             self.TableView.endUpdates()
+            print(self.labelRowArray_re)
+            print(self.practiceRowArray_re)
+            print(self.badTagNameArray_re)
+            print(self.practiceArray_re)
+
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
         
-        // PickerView
-        pickerview.selectRow(0, inComponent: 0, animated: true) // 初期値
-        pickerview.frame = CGRect(x: 0, y: 30, width: alert.view.bounds.width * 0.6, height: 300) // 配置、サイズ
         pickerview.dataSource = self
         pickerview.delegate = self
         pickerview.showsSelectionIndicator = true
         alert.view.addSubview(pickerview)
+
+        pickerview.translatesAutoresizingMaskIntoConstraints = false
+        // redViewの横方向の中心は、親ビューの横方向の中心と同じ
+        pickerview.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+         // redViewの縦方向の中心は、親ビューの縦方向の中心と同じ
+        pickerview.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+         // redViewの幅は、親ビューの幅の1/2
+        pickerview.widthAnchor.constraint(equalTo: alert.view.widthAnchor, multiplier: 0.7).isActive = true
+         // redViewの親ビューの幅の1/2
+        pickerview.heightAnchor.constraint(equalTo: alert.view.heightAnchor, multiplier: 0.7).isActive = true
+    
+        
+        // PickerView
+//        pickerview.selectRow(0, inComponent: 0, animated: true) // 初期値
+//        pickerview.frame = CGRect(x: 0, y: 0, width: alert.view.bounds.width, height: 300) // 配置、サイズ
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -478,8 +495,8 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
     @objc func addBadTag(_ sender: UIButton) {
         currentPickerviewFlag = "bad"
         let alert: UIAlertController = UIAlertController(title: "タグを追加",message: "追加したいタグを選択してください",preferredStyle: UIAlertController.Style.alert)
-        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 350)
-        let width:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 350)
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 500)
+        let width:NSLayoutConstraint = NSLayoutConstraint(item: alert.view!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: alert.view.bounds.width)
         alert.view.addConstraint(height)
         alert.view.addConstraint(width)
         print(alert.view.bounds.height)
@@ -522,10 +539,6 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                                     self.labelRowArray_re[key] += 1
                                 }
                             }
-                            print(self.labelRowArray_re)
-                            print(self.practiceRowArray_re)
-                            print(self.badTagNameArray_re)
-                            
                             self.TableView.beginUpdates()
                             self.TableView.insertRows(at: [IndexPath(row: self.goodTagNameArray_re.count+4, section: 0)],with: .automatic)
                             self.TableView.endUpdates()
@@ -538,19 +551,32 @@ class premiumAnswer1ViewController: UIViewController,UITableViewDelegate,UITable
                             self.practiceIDArray_re.insert(self.selectedPracticeID!, at: 0)
                         }
                     }
+                    print(self.labelRowArray_re)
+                    print(self.practiceRowArray_re)
+                    print(self.badTagNameArray_re)
+                    print(self.practiceArray_re)
+
                 }
             })
+
             
         })
         let cancelAction = UIAlertAction(title: "キャンセル",style: UIAlertAction.Style.cancel,handler: nil)
         
-        // PickerView
-        pickerview.selectRow(0, inComponent: 0, animated: true) // 初期値
-        pickerview.frame = CGRect(x: 0, y: 30, width: alert.view.bounds.width * 0.6, height: 300) // 配置、サイズ
         pickerview.dataSource = self
         pickerview.delegate = self
         pickerview.showsSelectionIndicator = true
         alert.view.addSubview(pickerview)
+
+        pickerview.translatesAutoresizingMaskIntoConstraints = false
+        // redViewの横方向の中心は、親ビューの横方向の中心と同じ
+        pickerview.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+         // redViewの縦方向の中心は、親ビューの縦方向の中心と同じ
+        pickerview.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+         // redViewの幅は、親ビューの幅の1/2
+        pickerview.widthAnchor.constraint(equalTo: alert.view.widthAnchor, multiplier: 0.7).isActive = true
+         // redViewの親ビューの幅の1/2
+        pickerview.heightAnchor.constraint(equalTo: alert.view.heightAnchor, multiplier: 0.7).isActive = true
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)

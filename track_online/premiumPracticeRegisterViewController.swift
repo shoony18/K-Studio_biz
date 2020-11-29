@@ -20,6 +20,7 @@ class premiumPracticeRegisterViewController: UIViewController {
     @IBOutlet var practice: UITextField!
     @IBOutlet var motionType: UITextField!
     @IBOutlet var bodyParts: UITextField!
+    @IBOutlet var comment: UITextView!
     let Ref = Database.database().reference()
 
     
@@ -53,12 +54,12 @@ class premiumPracticeRegisterViewController: UIViewController {
         let formatter2 = DateFormatter()
         formatter2.setLocalizedDateFormatFromTemplate("jm")
         let time = formatter2.string(from: date2)
-        let alert: UIAlertController = UIAlertController(title: "確認", message: "この内容で送信します。一度送信すると内容を修正できません。よろしいですか？", preferredStyle:  UIAlertController.Style.alert)
+        let alert: UIAlertController = UIAlertController(title: "確認", message: "この内容で送信します。よろしいですか？", preferredStyle:  UIAlertController.Style.alert)
         let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
             (action: UIAlertAction!) -> Void in
             
             let ref = self.Ref.child("purchase").child("premium").child("answer").child("parameter").child("practice").child("all").child("practice_"+"\(timenow)")
-            let data = ["practiceID":"practice_"+"\(timenow)","practice":"\(self.practice.text!)"]
+            let data = ["practiceID":"practice_"+"\(timenow)","practice":"\(self.practice.text!)","motionType":"\(self.motionType.text!)","bodyParts":"\(self.bodyParts.text!)","comment":"\(self.comment.text!)"]
             ref.setValue(data)
             self.practice.text = ""
         })

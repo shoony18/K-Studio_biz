@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cwb-rH-4cl">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cwb-rH-4cl">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,21 +11,34 @@
         <!--Splash View Controller-->
         <scene sceneID="p5J-Zi-iYv">
             <objects>
-                <viewController id="cwb-rH-4cl" customClass="splashViewController" customModule="track_online" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cwb-rH-4cl" customClass="splashViewController" customModule="track_biz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eok-w3-vVm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashImage" translatesAutoresizingMaskIntoConstraints="NO" id="crk-L5-rmh">
-                                <rect key="frame" x="-49" y="192" width="512" height="512"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="K-STUDIO_ロゴ小" translatesAutoresizingMaskIntoConstraints="NO" id="crk-L5-rmh">
+                                <rect key="frame" x="20" y="266" width="374" height="364"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="374" id="C5P-d5-Xrc"/>
+                                    <constraint firstAttribute="height" constant="364" id="EeO-aQ-Tuw"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="K-Studioコーチ向け画面" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnS-OB-WrA">
+                                <rect key="frame" x="71.5" y="183.5" width="271.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="KoN-1o-9KQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="crk-L5-rmh" firstAttribute="centerX" secondItem="eok-w3-vVm" secondAttribute="centerX" id="9zl-81-zcQ"/>
-                            <constraint firstItem="crk-L5-rmh" firstAttribute="centerY" secondItem="eok-w3-vVm" secondAttribute="centerY" id="Rru-Lb-LRq"/>
+                            <constraint firstItem="pnS-OB-WrA" firstAttribute="centerX" secondItem="eok-w3-vVm" secondAttribute="centerX" id="47P-mx-ds4"/>
+                            <constraint firstItem="crk-L5-rmh" firstAttribute="leading" secondItem="KoN-1o-9KQ" secondAttribute="leading" constant="20" id="KjT-ql-pAZ"/>
+                            <constraint firstItem="crk-L5-rmh" firstAttribute="centerY" secondItem="eok-w3-vVm" secondAttribute="centerY" id="UFR-oU-W59"/>
+                            <constraint firstItem="KoN-1o-9KQ" firstAttribute="trailing" secondItem="crk-L5-rmh" secondAttribute="trailing" constant="20" id="pk5-6o-sLY"/>
+                            <constraint firstItem="crk-L5-rmh" firstAttribute="top" secondItem="pnS-OB-WrA" secondAttribute="bottom" constant="52.5" id="wbj-UK-oi2"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="KoN-1o-9KQ"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkX-tF-FFI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,6 +47,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashImage" width="512" height="512"/>
+        <image name="K-STUDIO_ロゴ小" width="1024" height="1024"/>
     </resources>
 </document>
