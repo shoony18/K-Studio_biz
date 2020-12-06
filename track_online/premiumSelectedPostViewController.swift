@@ -31,7 +31,8 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
     var date: String?
     var time: String?
     var event: String?
-    var PB: String?
+    var PB1: String = ""
+    var PB2: String = ""
     var answerFlag: String?
     
     var goodTagNameArray = [String]()
@@ -119,8 +120,14 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
-            let key = value?["PB"] as? String ?? ""
-            self.PB = key
+            let key = value?["PB1"] as? String ?? ""
+            self.PB1 = key
+            self.TableView.reloadData()
+        })
+        ref1.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let key = value?["PB2"] as? String ?? ""
+            self.PB2 = key
             self.TableView.reloadData()
         })
         ref1.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -246,7 +253,7 @@ class premiumSelectedMyPostViewController: UIViewController,UITableViewDelegate,
             cell!.date.text = self.date
             cell!.time.text = self.time
             cell!.event.text = self.event
-            cell!.PB.text = self.PB
+            cell!.PB.text = self.PB1 + "." + self.PB2
             let textImage:String = self.selectedPostID!+".png"
             let refImage = Storage.storage().reference().child("purchase").child("premium").child("uuid").child("\(self.selectedUid!)").child("post").child("\(self.selectedPostID!)").child("\(textImage)")
             cell!.ImageView.sd_setImage(with: refImage, placeholderImage: nil)

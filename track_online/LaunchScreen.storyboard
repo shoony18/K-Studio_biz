@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="K-STUDIO_ロゴ小" translatesAutoresizingMaskIntoConstraints="NO" id="crk-L5-rmh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="K-STUDIO_ロゴ" translatesAutoresizingMaskIntoConstraints="NO" id="crk-L5-rmh">
                                 <rect key="frame" x="20" y="266" width="374" height="364"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="C5P-d5-Xrc"/>
@@ -47,6 +47,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="K-STUDIO_ロゴ小" width="1024" height="1024"/>
+        <image name="K-STUDIO_ロゴ" width="1280" height="720"/>
     </resources>
 </document>

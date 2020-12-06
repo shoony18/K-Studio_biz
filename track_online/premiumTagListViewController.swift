@@ -50,6 +50,10 @@ class premiumTagListViewController: UIViewController,UITableViewDelegate,UITable
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    @IBAction func refresh(_ sender: Any) {
+        loadData()
+    }
+    
     func loadData() {
         Ref.child("purchase").child("premium").child("answer").child("parameter").child("goodTag").child("all").observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapdata = snapshot.value as? [String:NSDictionary]{
@@ -156,17 +160,17 @@ class premiumTagListViewController: UIViewController,UITableViewDelegate,UITable
         if indexPath.section == 0{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "tagCell", for: indexPath as IndexPath) as? tagTableViewCell
             cell!.tagID.text = self.goodTagIDArray_re[indexPath.row]
-            cell!.tagName.text = self.goodTagIDArray_re[indexPath.row]
-            cell!.cause.text = "---"
-            cell!.comment.text = "---"
-            cell!.practice.text = "---"
+            cell!.tagName.text = self.goodTagNameArray_re[indexPath.row]
+//            cell!.cause.text = "---"
+//            cell!.comment.text = "---"
+//            cell!.practice.text = "---"
             return cell!
         }else{
             let cell = self.TableView.dequeueReusableCell(withIdentifier: "tagCell", for: indexPath as IndexPath) as? tagTableViewCell
             cell!.tagID.text = self.badTagIDArray_re[indexPath.row]
             cell!.tagName.text = self.badTagNameArray_re[indexPath.row]
-            cell!.cause.text = self.badTagCauseArray_re[indexPath.row]
-            cell!.comment.text = self.badTagCommentArray_re[indexPath.row]
+//            cell!.cause.text = self.badTagCauseArray_re[indexPath.row]
+//            cell!.comment.text = self.badTagCommentArray_re[indexPath.row]
 //            cell!.practice.text = self.badTagPracticeArray_re[indexPath.row]
             return cell!
         }
